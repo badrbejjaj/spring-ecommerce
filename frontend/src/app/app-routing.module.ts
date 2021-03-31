@@ -13,6 +13,10 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
   },
+  {
+    path: 'shopping',
+    loadChildren: () => import('./shopping/shopping.module').then(m => m.ShoppingModule)
+  },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

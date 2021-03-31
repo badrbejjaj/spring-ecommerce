@@ -10,11 +10,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { fakeBackendProvider } from './_helpers/fake-backend';
 import { ErrorInterceptor, JwtInterceptor } from './_helpers';
+import { HeaderTitleComponent } from './_components/header-title/header-title.component';
+import { SharedComponentsModule } from './_components/shared-components.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AlertComponent,
     HomeComponent
   ],
   imports: [
@@ -22,6 +23,7 @@ import { ErrorInterceptor, JwtInterceptor } from './_helpers';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SharedComponentsModule,
     NgbModule
   ],
   providers: [
