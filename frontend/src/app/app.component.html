@@ -1,13 +1,5 @@
 <!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
-  <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Spring Shop</a>
-      <a class="nav-item nav-link" >Articles</a>
-      <a class="nav-item nav-link" routerLink="/shopping/cart" routerLinkActive="active" >Panier</a>
-      <a class="nav-item nav-link" (click)="logout()">Logout</a>
-  </div>
-</nav>
-
+<app-navbar></app-navbar>
 <!-- main app container -->
 <div class="app-container">
   <app-alert></app-alert>

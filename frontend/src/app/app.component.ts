@@ -9,6 +9,7 @@ import { AccountService } from './_services';
 })
 export class AppComponent {
   user: User;
+  cartLenght = 3;
   constructor(private accountService: AccountService) {
     this.accountService.user.subscribe(x => this.user = x);
   }

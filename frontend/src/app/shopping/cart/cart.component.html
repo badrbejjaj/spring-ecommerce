@@ -1,4 +1,4 @@
-<app-header-title [headerTitle]="headerTitle" [headerDescription]="headerDescription" ></app-header-title>
+<app-header-title [headerTitle]="headerTitle" [headerDescription]="headerDescription" [textAlign]="'center'"></app-header-title>
 <div class="container mb-4">
     <div class="row">
         <div class="col-12">
@@ -15,28 +15,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr *ngFor="let index of [0,1,2,3]">
                             <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Dada</td>
+                            <td>Product {{index }}</td>
                             <td>In stock</td>
                             <td><input class="form-control" type="text" value="1" /></td>
                             <td class="text-right">124,90 €</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr>
-                        <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Toto</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">33,90 €</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr>
-                        <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Titi</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">70,00 €</td>
                             <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
                         </tr>
                         <tr>
@@ -70,10 +54,10 @@
         <div class="col mb-2">
             <div class="row">
                 <div class="col-sm-12  col-md-6 text-left">
-                    <button class="btn btn-primary">Continue Shopping</button>
+                    <button class="btn btn-primary" routerLink="/shopping/products">Continue Shopping</button>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-success">Checkout</button>
+                    <button class="btn btn-success">Acheter</button>
                 </div>
             </div>
         </div>

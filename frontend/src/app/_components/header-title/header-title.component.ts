@@ -9,6 +9,7 @@ export class HeaderTitleComponent implements OnInit {
 
   @Input() headerTitle: string;
   @Input() headerDescription: string;
+  @Input() textAlign = 'left';
 
   constructor() { }
 

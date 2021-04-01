@@ -1,21 +1,20 @@
-<app-header-title [headerTitle]="headerTitle" [headerDescription]="headerDescription" ></app-header-title>
+<app-header-title [textAlign]="'center'" [headerTitle]="headerTitle" [headerDescription]="headerDescription" ></app-header-title>
 <div class="container pb-5">
-    <h2 class="display-6 mb-4">Les derniers articles :</h2>
     <div class="row row-cols-1 row-cols-md-4">
-        <div class="col mb-4" *ngFor="let index of [0,1,2,3]">
+        <div class="col mb-4" *ngFor="let index of [0,1,2,3,4,5,6,7]">
             <div class="card">
                 <img src="https://nicolasmelis.com/wp-content/themes/panama/assets/img/empty/600x600.png" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Article N° {{ index }}</h5>
+                    <h5 class="card-title"><a routerLink="/shopping/product">Article N° {{ index }}</a></h5>
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-success">Ajouter au panier</a>
+                    <a routerLink="/shopping/cart" class="btn btn-success">Ajouter au panier</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="row row-cols-1">
         <div class="col text-center">
-            <a href="#" class="btn btn-primary">Afficher tout les articles</a>
+            <a href="#" class="btn btn-primary">Afficher plus</a>
         </div>
     </div>
 </div>
