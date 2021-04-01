@@ -9,7 +9,8 @@ import { ProductSearchComponent } from './product-search/product-search.componen
 const components = [
   AlertComponent,
   HeaderTitleComponent,
-  NavbarComponent
+  NavbarComponent,
+  ProductSearchComponent
 ];
 
 const modules = [
