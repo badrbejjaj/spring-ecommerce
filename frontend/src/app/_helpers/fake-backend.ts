@@ -49,6 +49,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 username: user.username,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                role: 'admin',
                 token: 'fake-jwt-token'
             });
         }

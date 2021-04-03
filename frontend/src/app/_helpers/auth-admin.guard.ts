@@ -6,7 +6,7 @@ import { AccountService } from '@services/index';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthAdminGuard implements CanActivate {
   constructor(
       private router: Router,
       private accountService: AccountService
@@ -17,6 +17,10 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const user = this.accountService.userValue;
       if (user) {
+          if (user.role !== 'admin') {
+            this.router.navigate(['/not-found'], { queryParams: { access_denied: true }});
+            return false;
+          }
           // authorised so return true
           return true;
       }

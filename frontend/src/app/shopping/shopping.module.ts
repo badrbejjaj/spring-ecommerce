@@ -7,12 +7,16 @@ import { SharedComponentsModule } from '../_components/shared-components.module'
 import { ProductsComponent } from './products/products.component';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { ProductItemComponent } from './products/product-item/product-item.component';
+import { HomeComponent } from './home/home.component';
+import { LayoutComponent } from './_layout/layout.component';
 
 const components = [
   CartComponent,
   ProductsComponent,
   ProductsListComponent,
-  ProductItemComponent
+  ProductItemComponent,
+  HomeComponent,
+  LayoutComponent
 ];
 
 const modules = [

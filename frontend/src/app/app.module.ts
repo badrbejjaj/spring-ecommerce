@@ -4,19 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AlertComponent } from './_components/alert/alert.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HomeComponent } from './home/home.component';
 import { fakeBackendProvider } from './_helpers/fake-backend';
 import { ErrorInterceptor, JwtInterceptor } from './_helpers';
-import { HeaderTitleComponent } from './_components/header-title/header-title.component';
 import { SharedComponentsModule } from './_components/shared-components.module';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
