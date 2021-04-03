@@ -1,37 +1,53 @@
-<h1 class="mt-4">Liste des articles</h1>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item">Articles</li>
-    <li class="breadcrumb-item active">Liste des articles</li>
-</ol>
+<app-page-header [pageTitle]="pageTitle" [pageBreadcrumb]="pageBreadcrumb"></app-page-header>
 <div class="row">
-    <div class="col text-right">
-        <button class="btn btn-success" routerLink="/admin/articles/new">Nouveau article</button>
-    </div>
+  <div class="col text-right">
+    <button class="btn btn-success" routerLink="/admin/articles/new">Nouveau article</button>
+  </div>
 </div>
 <div class="row mt-4">
-    <div class="col">
-        <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col" *ngFor="let column of columns">{{ column.label }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let row of rows">
-                <th scope="row">{{ row.id }}</th>
-                <td>{{ row.reference }}</td>
-                <td>{{ row.designation }}</td>
-                <td>{{ row.price }} $</td>
-                <td scope="row">
-                    <button class="btn btn-sm btn-primary" [routerLink]="'/admin/articles/edit/' + row.id">
-                        <i class="fa fa-pen"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger" (click)="deleteProduct(row.id)">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-    </div>
+  <div class="col">
+    <table class="table table-hover" [ngClass]="{ 'table-loading-height' : loading }">
+      <thead>
+        <tr>
+          <th scope="col" *ngFor="let column of columns">{{ column.label }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="!isEmpty; else emptyList">
+          <tr *ngFor="let row of rows">
+            <th scope="row">{{ row.id }}</th>
+            <td>{{ row.reference }}</td>
+            <td>{{ row.designation }}</td>
+            <td>{{ row.quantity }}</td>
+            <td>{{ row.price }} $</td>
+            <td scope="row" class="w-20">
+              <button class="btn btn-sm btn-primary mb-2" routerLink="/admin/articles/edit/{{row.id}}">
+                Modifier
+                <i class="fa fa-pen"></i>
+              </button>
+              <button class="btn btn-sm btn-danger ml-2 mb-2" (click)="deleteProduct(row)">
+                Supprimer
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+        <div *ngIf="loading" class="table-loading d-flex">
+          <div class="text-center">
+            <div class="spinner-grow text-primary spinner-border-lg align-center" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <ng-template #emptyList>
+          <tr>
+            <td colspan="6" class="text-center">
+              <span>Aucun article existe</span>
+            </td>
+          </tr>
+        </ng-template>
+
+      </tbody>
+    </table>
+  </div>
 </div>

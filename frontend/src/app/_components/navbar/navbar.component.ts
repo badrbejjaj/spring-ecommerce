@@ -8,13 +8,14 @@ import { AccountService } from '@services/index';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  isAdmin = false;
   constructor(
     public router: Router,
     private accountService: AccountService
   ) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.accountService.userValue.role === 'admin';
   }
 
   logout(): void {

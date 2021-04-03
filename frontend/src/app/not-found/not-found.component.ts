@@ -22,7 +22,7 @@ export class NotFoundComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private accountService: AccountService
+    public accountService: AccountService
   ) { }
 
   ngOnInit(): void {

@@ -1,1 +1,48 @@
-<p>article-form works!</p>
+<app-page-header [pageTitle]="pageTitle" [pageBreadcrumb]="pageBreadcrumb" ></app-page-header>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="reference">Reference *</label>
+            <input type="text" placeholder="Reference" formControlName="reference" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.reference.errors }" />
+            <div *ngIf="submitted && f.reference.errors" class="invalid-feedback">
+                <div *ngIf="f.reference.errors.required">une référence est requise</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="designation">Designation *</label>
+            <input type="text" placeholder="Designation" formControlName="designation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.designation.errors }" />
+            <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                <div *ngIf="f.designation.errors.required">Designation est Requise</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="price">Prix *</label>
+            <input type="text" placeholder="Prix" formControlName="price" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" />
+            <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                <div *ngIf="f.price.errors.required">le prix est requise</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="quantity">Quantité *</label>
+            <input type="text" placeholder="Quantité" formControlName="quantity" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }" />
+            <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+                <div *ngIf="f.quantity.errors.required">La quantité est Requise</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="unity">Unité *</label>
+            <input type="text" placeholder="Unité" formControlName="unity" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.unity.errors }" />
+            <div *ngIf="submitted && f.unity.errors" class="invalid-feedback">
+                <div *ngIf="f.unity.errors.required">l'unité est Requise</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            {{ buttonLabel }}
+        </button>
+    </div>
+</form>

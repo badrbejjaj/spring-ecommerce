@@ -24,6 +24,10 @@ export class AccountService {
         return this.userSubject.value;
     }
 
+    public get isAdmin(): boolean {
+        return this.userSubject.value.role === 'admin';
+    }
+
     login(username, password): Observable<User> {
         return this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
             .pipe(map(user => {

@@ -3,4 +3,6 @@ export interface Product {
     reference: string;
     designation: string;
     price: number;
+    quantity: number;
+    unity: string;
 }

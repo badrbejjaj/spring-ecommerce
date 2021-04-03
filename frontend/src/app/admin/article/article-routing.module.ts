@@ -12,7 +12,7 @@ const routes: Routes = [
         component: ArticleFormComponent
       },
       {
-        path : 'edit',
+        path : 'edit/:id',
         component: ArticleFormComponent
       },
       {

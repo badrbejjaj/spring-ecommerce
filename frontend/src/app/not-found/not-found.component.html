@@ -3,6 +3,11 @@
         <h1 class="display-1 font-weight-bold ">{{ pageInfo.statusCode }}</h1>
         <h4 class="text-muted mb-4">{{ pageInfo.title }}</h4>
         <p class="" *ngIf="pageInfo.statusCode === 404">La page a été avalée par un trou noir ...</p>
-        <a class="btn btn-dark" [routerLink]="homepageLink" role="button"><i class="fas fa-house-user mr-2"></i> retour à la page d'accueil</a>
+        <a class="btn btn-dark" [routerLink]="homepageLink" role="button">
+            <i class="fas fa-house-user mr-2"></i> retour à la page d'accueil
+        </a>
+        <a *ngIf="accountService.isAdmin" class="btn btn-dark ml-3" routerLink="/admin" role="button">
+            <i class="fas fa-user-cog mr-2"></i> Espace Admin
+        </a>
     </div>
 </div>
