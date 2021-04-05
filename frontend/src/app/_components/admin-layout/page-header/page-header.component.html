@@ -1,0 +1,4 @@
+<h1 class="mt-4">{{ pageTitle }}</h1>
+<ol class="breadcrumb mb-4">
+    <li [ngClass]="{ 'breadcrumb-item' : true, 'active' : last }" *ngFor="let pb of pageBreadcrumb; last as last">{{ pb }}</li>
+</ol>

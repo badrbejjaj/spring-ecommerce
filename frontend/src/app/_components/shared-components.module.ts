@@ -5,12 +5,18 @@ import { AlertComponent } from './alert/alert.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { ProductSearchComponent } from './product-search/product-search.component';
+import { PageHeaderComponent } from './admin-layout/page-header/page-header.component';
+import { SideNaveComponent } from './admin-layout/side-nave/side-nave.component';
 
 const components = [
   AlertComponent,
   HeaderTitleComponent,
   NavbarComponent,
-  ProductSearchComponent
+  ProductSearchComponent,
+  NavbarComponent,
+  ProductSearchComponent,
+  PageHeaderComponent,
+  SideNaveComponent
 ];
 
 const modules = [
@@ -19,7 +25,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components, NavbarComponent, ProductSearchComponent],
+  declarations: [...components],
   imports: [...modules],
   exports: [...components]
 })

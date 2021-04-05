@@ -13,8 +13,8 @@
         <div class="col-12 col-lg-6 add_to_cart_block ">
             <div class="card bg-light mb-3">
                 <div class="card-body">
-                    <h4>Article N° 0</h4>
-                    <p class="price">99.00 $</p>
+                    <h4>{{ product.designation }}</h4>
+                    <p class="price">{{ product.price }} $</p>
                     <form method="get">
                         <div class="form-group">
                             <label>Quantité :</label>
@@ -32,9 +32,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a routerLink="/shopping/cart" class="btn btn-success btn-block">
+                        <button (click)="addToCart(product)" class="btn btn-success btn-block">
                             <i class="fa fa-shopping-cart"></i> Ajouter au panier
-                        </a>
+                        </button>
                     </form>
                 </div>
             </div>

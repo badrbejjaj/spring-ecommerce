@@ -5,6 +5,7 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
+let products = JSON.parse(localStorage.getItem('products')) || [];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -24,14 +25,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return authenticate();
                 case url.endsWith('/users/register') && method === 'POST':
                     return register();
-                case url.endsWith('/users') && method === 'GET':
-                    return getUsers();
-                case url.match(/\/users\/\d+$/) && method === 'GET':
-                    return getUserById();
-                case url.match(/\/users\/\d+$/) && method === 'PUT':
-                    return updateUser();
-                case url.match(/\/users\/\d+$/) && method === 'DELETE':
-                    return deleteUser();
+                case url.endsWith('/products/create') && method === 'POST':
+                    return createProduct();
+                case url.endsWith('/products') && method === 'GET':
+                    return getProducts();
+                case url.match(/\/products\/\d+$/) && method === 'GET':
+                    return getProductById();
+                case url.match(/\/products\/\d+$/) && method === 'PUT':
+                    return updateProduct();
+                case url.match(/\/products\/\d+$/) && method === 'DELETE':
+                    return deleteProduct();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -49,6 +52,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 username: user.username,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                role: 'admin',
                 token: 'fake-jwt-token'
             });
         }
@@ -66,9 +70,27 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok();
         }
 
+        function createProduct(): any {
+            const product = body;
+
+            if (products.find(x => x.reference === product.reference)) {
+                return error('Referance "' + product.reference + '" est déja utilisé');
+            }
+
+            product.id = products.length ? Math.max(...products.map(x => x.id)) + 1 : 1;
+            products.push(product);
+            localStorage.setItem('products', JSON.stringify(products));
+            return ok();
+        }
+
         function getUsers(): any {
             if (!isLoggedIn()) { return unauthorized(); }
             return ok(users);
+        }
+
+        function getProducts(): any {
+            if (!isLoggedIn()) { return unauthorized(); }
+            return ok(products);
         }
 
         function getUserById(): any {
@@ -76,6 +98,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             const user = users.find(x => x.id === idFromUrl());
             return ok(user);
+        }
+
+        function getProductById(): any {
+            if (!isLoggedIn()) { return unauthorized(); }
+
+            const product = products.find(x => x.id === idFromUrl());
+            if (!product) {
+                return notFound();
+            }
+            return ok(product);
         }
 
         function updateUser(): any {
@@ -96,11 +128,31 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok();
         }
 
+        function updateProduct(): any {
+            if (!isLoggedIn()) { return unauthorized(); }
+
+            const params = body;
+            const product = products.find(x => x.id === idFromUrl());
+
+            // update and save user
+            Object.assign(product, params);
+            localStorage.setItem('products', JSON.stringify(products));
+
+            return ok();
+        }
+
         function deleteUser(): any {
             if (!isLoggedIn()) { return unauthorized(); }
 
             users = users.filter(x => x.id !== idFromUrl());
             localStorage.setItem('users', JSON.stringify(users));
+            return ok();
+        }
+
+        function deleteProduct(): any {
+            if (!isLoggedIn()) { return unauthorized(); }
+            products = products.filter(x => x.id !== idFromUrl());
+            localStorage.setItem('products', JSON.stringify(products));
             return ok();
         }
 
@@ -124,7 +176,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function idFromUrl(): any {
             const urlParts = url.split('/');
-            return parseInt(urlParts[urlParts.length - 1], 2);
+            return Number(urlParts[urlParts.length - 1]);
+        }
+        function notFound(): any {
+            return  throwError({ status: 404, error: { message: 'Not Found' } });
         }
     }
 }
