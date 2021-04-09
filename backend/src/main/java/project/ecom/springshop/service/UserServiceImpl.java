@@ -18,9 +18,7 @@ import project.ecom.springshop.domaine.user.UserVo;
 import project.ecom.springshop.service.model.Role;
 import project.ecom.springshop.service.model.User;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 @Service("userService")
@@ -61,10 +59,9 @@ public class UserServiceImpl implements IUserService {
         User user= UserConverter.toBo(userVo);
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         List<Role> rolesPersist = new ArrayList<>();
-        for (Role role : user.getRoles()) {
-            Role userRole = roleRepository.findByRole(role.getRole()).get(0);
-            rolesPersist.add(userRole);
-        }
+        RoleVo role = new RoleVo("CLIENT");
+        Role userRole = roleRepository.findByRole(role.getRole()).get(0);
+        rolesPersist.add(userRole);
         user.setRoles(rolesPersist);
         userRepository.save(user);
     }
@@ -93,6 +90,10 @@ public class UserServiceImpl implements IUserService {
     public void cleanDataBase() {
         userRepository.deleteAll();
         roleRepository.deleteAll();
+    }
+
+    public boolean userExistByUsernameOrEmail(String username, String email) {
+        return Objects.isNull(userRepository.findByUsernameOrEmail(username, email));
     }
 
     @Bean

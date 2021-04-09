@@ -13,4 +13,5 @@ public interface IUserService extends UserDetailsService {
     List<RoleVo> getAllRoles();
     RoleVo getRoleByName(String role);
     void cleanDataBase();
+    boolean userExistByUsernameOrEmail(String username, String email);
 }

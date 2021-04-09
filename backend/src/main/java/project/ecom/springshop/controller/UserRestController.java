@@ -1,6 +1,7 @@
 package project.ecom.springshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,6 +47,18 @@ public class UserRestController {
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @RequestMapping(value = "/api/register", method = RequestMethod.POST)
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody UserVo userVo) throws Exception {
+        boolean userExist = service.userExistByUsernameOrEmail(userVo.getUsername(), userVo.getEmail());
+
+        if(!userExist) {
+            return new ResponseEntity<>("Username or email already exist", HttpStatus.BAD_REQUEST);
+        }
+
+        service.save(userVo);
+        return new ResponseEntity<>("User succefully created", HttpStatus.CREATED);
     }
 
     private void authenticate(String username, String password) throws Exception {

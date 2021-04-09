@@ -23,6 +23,12 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String city;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

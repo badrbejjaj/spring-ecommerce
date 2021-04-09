@@ -17,14 +17,20 @@ public class UserConverter {
         vo.setRoles(RoleConverter.toVoList(bo.getRoles()));
         return vo;
     }
-    public static User toBo(UserVo vo) {
+        public static User toBo(UserVo vo) {
         if (vo == null)
             return null;
         User bo = new User();
         if (vo.getId() != null)
             bo.setId(vo.getId());
+        bo.setFirstName(vo.getFirstName());
+        bo.setLastName(vo.getLastName());
         bo.setUsername(vo.getUsername());
         bo.setPassword(vo.getPassword());
+        bo.setEmail(vo.getEmail());
+        bo.setCity(vo.getCity());
+        bo.setPhone(vo.getPhone());
+
         bo.setRoles(RoleConverter.toBoList(vo.getRoles()));
         return bo;
     }
