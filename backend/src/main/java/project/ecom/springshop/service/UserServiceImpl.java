@@ -15,8 +15,8 @@ import project.ecom.springshop.domaine.role.RoleConverter;
 import project.ecom.springshop.domaine.role.RoleVo;
 import project.ecom.springshop.domaine.user.UserConverter;
 import project.ecom.springshop.domaine.user.UserVo;
-import project.ecom.springshop.service.model.Role;
-import project.ecom.springshop.service.model.User;
+import project.ecom.springshop.model.Role;
+import project.ecom.springshop.model.User;
 
 import java.util.*;
 
@@ -59,9 +59,10 @@ public class UserServiceImpl implements IUserService {
         User user= UserConverter.toBo(userVo);
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         List<Role> rolesPersist = new ArrayList<>();
-        RoleVo role = new RoleVo("CLIENT");
-        Role userRole = roleRepository.findByRole(role.getRole()).get(0);
-        rolesPersist.add(userRole);
+        for (Role role : user.getRoles()) {
+            Role userRole = roleRepository.findByRole(role.getRole()).get(0);
+            rolesPersist.add(userRole);
+        }
         user.setRoles(rolesPersist);
         userRepository.save(user);
     }
@@ -79,6 +80,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<RoleVo> getAllRoles() {
         return RoleConverter.toVoList(roleRepository.findAll());
+    }
+
+    @Override
+    public UserVo getUserByUsername(String username) {
+        return UserConverter.toVo(userRepository.findByUsername(username));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package project.ecom.springshop.service.model;
+package project.ecom.springshop.model;
 
 public class JwtRequest {
 

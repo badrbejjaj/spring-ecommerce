@@ -1,7 +1,7 @@
 package project.ecom.springshop.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import project.ecom.springshop.service.model.Role;
+import project.ecom.springshop.model.Role;
 
 import java.util.List;
 

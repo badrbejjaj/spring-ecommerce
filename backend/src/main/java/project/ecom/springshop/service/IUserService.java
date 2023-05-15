@@ -11,6 +11,7 @@ public interface IUserService extends UserDetailsService {
     void save(RoleVo role);
     List<UserVo> getAllUsers();
     List<RoleVo> getAllRoles();
+    UserVo getUserByUsername(String username);
     RoleVo getRoleByName(String role);
     void cleanDataBase();
     boolean userExistByUsernameOrEmail(String username, String email);

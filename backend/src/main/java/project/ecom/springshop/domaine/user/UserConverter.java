@@ -1,7 +1,7 @@
 package project.ecom.springshop.domaine.user;
 
 import project.ecom.springshop.domaine.role.RoleConverter;
-import project.ecom.springshop.service.model.User;
+import project.ecom.springshop.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,14 @@ public class UserConverter {
             return null;
         UserVo vo = new UserVo();
         vo.setId(bo.getId());
+        vo.setFirstName(bo.getFirstName());
+        vo.setLastName(bo.getLastName());
         vo.setUsername(bo.getUsername());
-        vo.setPassword(vo.getPassword());
+        vo.setPassword(bo.getPassword());
+        vo.setEmail(bo.getEmail());
+        vo.setCity(bo.getCity());
+        vo.setPhone(bo.getPhone());
+        vo.setPassword(bo.getPassword());
         vo.setRoles(RoleConverter.toVoList(bo.getRoles()));
         return vo;
     }

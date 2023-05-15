@@ -1,6 +1,6 @@
 package project.ecom.springshop.domaine.role;
 
-import project.ecom.springshop.service.model.Role;
+import project.ecom.springshop.model.Role;
 
 import java.util.ArrayList;
 import java.util.List;

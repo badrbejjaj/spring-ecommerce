@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AccountService } from '@services/index';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +16,15 @@ export class AuthAdminGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      const user = this.accountService.userValue;
-      if (user) {
-          if (user.role !== 'admin') {
-            this.router.navigate(['/not-found'], { queryParams: { access_denied: true }});
-            return false;
+      return this.accountService.isAdmin()
+      .pipe(tap((logged) => {
+          if (!logged) {
+              this.router.navigate(['/login']);
+              return false;
           }
-          // authorised so return true
-          return true;
-      }
 
-      // not logged in so redirect to login page with the return url
-      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-      return false;
+          return true;
+      }));
   }
 
 }
