@@ -8,13 +8,5 @@ import { AccountService } from '@services/index';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  user: User;
-  cartLenght = 3;
-  constructor(private accountService: AccountService) {
-    this.accountService.user.subscribe(x => this.user = x);
-  }
-
-  logout(): void {
-    this.accountService.logout();
-}
+  constructor() {}
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
 import { AccountService, AlertService } from '@services/index';
 
 @Component({
@@ -13,14 +13,21 @@ export class LoginComponent implements OnInit {
   public loading = false;
   public submitted = false;
   public returnUrl: string;
-
+  private isLogged: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
     private alertService: AlertService
-    ) { }
+    ) {
+      this.accountService.isAuthenticated().subscribe((logged: boolean) => {
+        // redirect to home if already logged in
+        if (logged) {
+          this.router.navigate(['/']);
+        }
+      });
+    }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -51,6 +58,8 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
+                this.alertService.success('Logged Successfully');
+                this.loading = false;
                 this.router.navigate([this.returnUrl]);
             },
             error => {

@@ -12,21 +12,14 @@ export class RegisterComponent implements OnInit {
   public form: FormGroup;
   public loading = false;
   public submitted = false;
-
+  private phoneRgExpression = '^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
     private alertService: AlertService
-  ) {
-
-    // redirect to home if already logged in
-    if (this.accountService.userValue) {
-      this.router.navigate(['/']);
-    }
-
-  }
+  ) {  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -35,8 +28,8 @@ export class RegisterComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', [Validators.email, Validators.required]],
       city: ['', Validators.required],
-      phone: ['', Validators.required],
-      password: ['', Validators.required]
+      phone: ['', [Validators.required, Validators.pattern('(06)[0-9 ]{8}')]],
+      password: ['', [Validators.required, Validators.min(6)]]
     });
 
   }
@@ -59,9 +52,9 @@ export class RegisterComponent implements OnInit {
     this.accountService.register(this.form.value)
         .pipe(first())
         .subscribe(
-            data => {
-                this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-                this.router.navigate(['../login'], { relativeTo: this.route });
+            (data: any) => {
+                this.alertService.success(data.message, { keepAfterRouteChange: true });
+                this.router.navigate(['/login'], { relativeTo: this.route });
             },
             error => {
                 this.alertService.error(error);

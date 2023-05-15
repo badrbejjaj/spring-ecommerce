@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@app/_models';
 import { AccountService } from '@app/_services';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-layout',
@@ -15,11 +16,15 @@ export class LayoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = this.accountService.userValue;
+    this.accountService.currentUser$.pipe(tap((user: User) => {
+      this.user = user;
+    }));
   }
+
   logout(): void {
     this.accountService.logout();
   }
+
   toggleSideNav(event): void {
     event.preventDefault();
     this.openSideNave = !this.openSideNave;
